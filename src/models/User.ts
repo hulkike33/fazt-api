@@ -1,53 +1,43 @@
-import { Schema, model, Document } from "mongoose";
-import bcrypt from "bcrypt";
+// Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 
-export interface IUser extends Document {
-  nickname: string;
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  password?: string;
-  createdAt: Date;
-
-  setPassword(password: string): Promise<void>;
-  comparePassword(password: string): boolean;
-}
+import { Schema, model } from 'mongoose';
+import bcrypt from 'bcryptjs';
 
 const UserSchema: Schema<IUser> = new Schema<IUser>(
   {
     nickname: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     firstName: {
-      type: String,
+      type: String
     },
     lastName: {
-      type: String,
+      type: String
     },
     email: {
       type: String,
       required: true,
-      unique: true,
+      unique: true
     },
     password: {
       type: String,
       required: true
-    },
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
-UserSchema.methods.setPassword = async function (password: String) {
+UserSchema.methods.setPassword = async function (password: string) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(password, salt);
 };
 
-// UserSchema.methods.comparePassword = async function(password: String) {
-//     return await bcrypt.compare(password, this.password);
-// };
+UserSchema.methods.comparePassword = async function (password: string) {
+  return await bcrypt.compare(password, this.password);
+};
 
-export default model<IUser>("User", UserSchema);
+export default model<IUser>('User', UserSchema);

@@ -1,54 +1,39 @@
-import {Handler, Request, Response} from 'express';
-import Jobs, {IJob} from '../models/Jobs';
-import {error, success} from '../network/response';
-import {isNull} from 'util';
+// Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 
-export const getJobs: Handler = async (req: Request, res: Response) => {
-  try {
-    const results = await Jobs.find();
-    return success(res, results, "200");
-  } catch (e) {
-    return error(res, "500", "Error getting jobs");
-  }
-}
+import Jobs from '../models/Jobs';
+import { NOT_FOUND, BAD_REQUEST } from 'http-status-codes';
+import { ErrorHandler } from '../error';
+import { validationResult } from 'express-validator';
 
-export const getJob = async (req: Request, res: Response) => {
-  try {
-    const result = await Jobs.findById(req.params.id);
-    if (!result) throw new Error("JobNotFound");
-    return success(res, result, "200");
-  } catch (e) {
-    return error(res, "404", "Job not found");
-  }
-}
-export const createJob = async (req: Request, res: Response) => {
-  try { 
-    const newJob = new Jobs(req.body);
-    newJob.save();
-    return success(res, newJob, "200");
-  } catch (e) {
-    return error(res, "400", "Error creating Job");
-  }
-}
-export const deleteJob = async (req: Request, res: Response) => {
-  try {
-    await Jobs.findByIdAndRemove(req.params.id);
-    return success(res, {message: "User deleted"}, "200");
-  } catch(e) {
-    return error(res, "500", "Error deleting user");
-  }
-}
-export const updateJob = async (req: Request, res: Response) => {
-  const updateData = req.body;
-  const idFilter = {_id: req.params.id}
-  let updatedJob: IJob | null;
-  try {
-    await Jobs.findOneAndUpdate(idFilter, updateData);
-    updatedJob = await Jobs.findById(req.params.id);
-    if (isNull(updatedJob)) throw new Error("UserDontExists"); 
-  } catch (e) {
-    return error(res, "500", "Error updating job");
-  }
-  return success(res, updatedJob, "200");
-}
+export const getJobs: Handler = async (req, res) => {
+  const results = await Jobs.find().exec();
+  return res.json(results);
+};
 
+export const getJob: Handler = async (req, res) => {
+  const result = await Jobs.findById(req.params.id).exec();
+  if (!result) throw new ErrorHandler(NOT_FOUND, 'Job Not Found');
+  return res.json(result);
+};
+
+export const createJob: Handler = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) throw new ErrorHandler(BAD_REQUEST, errors.array());
+
+  const newJob = new Jobs(req.body);
+  newJob.save();
+  return res.json(newJob);
+};
+
+export const deleteJob: Handler = async (req, res) => {
+  const job = await Jobs.findByIdAndRemove(req.params.id).exec();
+  return res.json(job);
+};
+
+export const updateJob: Handler = async (req, res) => {
+  const job = await Jobs.findByIdAndUpdate(req.params.id, req.body, {
+    new: true
+  }).exec();
+  if (!job) throw new ErrorHandler(NOT_FOUND, 'User Dont Exists');
+  return res.json(job);
+};

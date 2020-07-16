@@ -1,7 +1,8 @@
-import {Request, Response} from 'express';
+// Copyright 2020 Fazt Community ~ All rights reserved. MIT license.
 import New from '../models/News';
-export const geNews = () => {}
-export const getNew = () => {}
-export const createNew = () => {}
-export const deleteNew= () => {}
-export const updateNew = () => {}
+
+export const getNews = () => {};
+export const getNew = () => {};
+export const createNew = () => {};
+export const deleteNew = () => {};
+export const updateNew = () => {};
