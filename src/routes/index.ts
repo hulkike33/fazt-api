@@ -12,7 +12,6 @@ import miscRoutes from './misc.routes';
 import newsRoutes from './new.routes';
 import githubRoutes from './github.routes';
 
-
 const routes = Router();
 
 routes.use('/', indexRoutes);
