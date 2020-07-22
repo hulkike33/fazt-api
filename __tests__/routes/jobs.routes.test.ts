@@ -1,11 +1,14 @@
 import router from '../../src/routes/jobs.routes';
 import server from '../utils/server';
+import { OK } from 'http-status-codes';
 
-describe('Route - Jobs', () => {
-  const request = server(router);
-  it('Get list of Jobs', async () => {
+const request = server(router);
+
+describe('GET /jobs', () => {
+  it('Get Empty Array', async () => {
     const result = await request.get('/');
-    expect(result.status).toBe(200);
+
+    expect(result.status).toBe(OK);
     expect(result.body.data).toEqual([]);
   });
 });

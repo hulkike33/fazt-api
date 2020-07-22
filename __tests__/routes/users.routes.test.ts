@@ -6,7 +6,7 @@ import { createUser } from '../utils/users';
 
 const request = server(router);
 
-describe('GET  /user', () => {
+describe('GET  /users', () => {
   it('Get Empty Array', async () => {
     const result = await request.get('/');
     expect(result.status).toBe(OK);
@@ -27,7 +27,7 @@ describe('GET  /user', () => {
   });
 });
 
-describe('GET /user/:id', () => {
+describe('GET /users/:id', () => {
   it('Get User', async () => {
     const { user: newUser } = await createUser(request);
     const {
@@ -44,7 +44,7 @@ describe('GET /user/:id', () => {
   });
 });
 
-describe('POST /user/signin', () => {
+describe('POST /users/signin', () => {
   it('Create User', async () => {
     const { body, status } = await createUser(request);
 
@@ -54,7 +54,7 @@ describe('POST /user/signin', () => {
   });
 });
 
-describe('POST /user/login', () => {
+describe('POST /users/login', () => {
   it('Login User', async () => {
     const { user } = await createUser(request);
 
@@ -66,7 +66,7 @@ describe('POST /user/login', () => {
   });
 });
 
-describe('PUT /user', () => {
+describe('PUT /users', () => {
   it('Update User Without Token', async () => {
     const { body, status } = await request.put('/');
 
@@ -96,7 +96,7 @@ describe('PUT /user', () => {
   });
 });
 
-describe('DELETE /user', () => {
+describe('DELETE /users', () => {
   it('Delete User Without Token', async () => {
     const { body, status } = await request.delete('/');
 
