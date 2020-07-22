@@ -5,11 +5,13 @@ const mongo = new MongoMemoryServer();
 
 export async function connect(): Promise<void> {
   const uri = await mongo.getConnectionString();
-  const mongooseOptions = {
-    useNewUrlParser: true
-  };
 
-  await mongoose.connect(uri, mongooseOptions);
+  await mongoose.connect(uri, {
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  });
 }
 
 export async function closeDatabase(): Promise<void> {
@@ -22,7 +24,8 @@ export async function clearDatabase(): Promise<void> {
   const collections = mongoose.connection.collections;
   const collectionsDeleted = await Object.keys(collections)
     .map(async (collection) => {
-      if (await collections[collection].count()) return collections[collection].drop();
+      if (await collections[collection].estimatedDocumentCount())
+        return collections[collection].drop();
     })
     .filter((it) => it !== undefined);
 
