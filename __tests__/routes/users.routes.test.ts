@@ -2,7 +2,7 @@ import router from '../../src/routes/users.routes';
 import server from '../utils/server';
 import { OK, UNAUTHORIZED } from 'http-status-codes';
 
-import { createUser } from '../utils/user';
+import { createUser } from '../utils/users';
 
 const request = server(router);
 
