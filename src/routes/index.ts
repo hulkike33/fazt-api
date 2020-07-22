@@ -9,7 +9,7 @@ import jobRoutes from './jobs.routes';
 import discordRoutes from './discord.routes';
 import indexRoutes from './index.routes';
 import miscRoutes from './misc.routes';
-import newsRoutes from './new.routes';
+import newsRoutes from './news.routes';
 import githubRoutes from './github.routes';
 
 

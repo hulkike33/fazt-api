@@ -3,6 +3,7 @@
 import {Router} from 'express';
 import { handlerExceptionRoute } from '../error';
 import * as miscCtrl from '../controllers/misc.controller';
+import * as miscValidator from '../validators/misc.validators';
 const router = Router();
 
 /**
@@ -69,7 +70,10 @@ router.get('/:id', handlerExceptionRoute(miscCtrl.getMisc));
  * @apiUse PostP
  * @apiUse ErrorResponse
  */
-router.post('/', handlerExceptionRoute(miscCtrl.createMisc));
+router.post(
+  '/',
+  miscValidator.createMiscValidator,
+  handlerExceptionRoute(miscCtrl.createMisc));
 
 /**
  * @api {put} /misc/:id Actualiza un enlace
