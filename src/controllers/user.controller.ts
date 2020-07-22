@@ -52,8 +52,6 @@ export const createUser: Handler = async (req, res) => {
 
 export const deleteUser: Handler = async (req, res) => {
   const user = await User.findByIdAndRemove(req.user.id).exec();
-  console.log(req.user.id);
-  console.log(user);
   if (!user) throw new ErrorHandler(NOT_FOUND, 'User not found');
 
   return res.status(OK).json({
