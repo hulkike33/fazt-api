@@ -22,10 +22,11 @@ export async function closeDatabase(): Promise<void> {
 
 export async function clearDatabase(): Promise<void> {
   const collections = mongoose.connection.collections;
-  const collectionsDeleted = Object.keys(collections).map((collection) => {
-    return collections[collection].drop();
-  });
-  try {
-    await Promise.all(collectionsDeleted);
-  } catch (err) {}
+  const collectionsDeleted = await Object.keys(collections)
+    .map(async (collection) => {
+      if (await collections[collection].count()) return collections[collection].drop();
+    })
+    .filter((it) => it !== undefined);
+
+  await Promise.all(collectionsDeleted);
 }
