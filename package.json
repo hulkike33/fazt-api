@@ -1,0 +1,42 @@
+{
+  "name": "fapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --rs --transpile-only src/index",
+    "build": "tsc",
+    "start": "ts-node src/index",
+    "typeorm": "ts-node ./node_modules/typeorm/cli.js",
+    "lint": "prettier --write \"**/*.{js,ts,json,md}\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faztcommunity/fazt-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/faztcommunity/fazt-api/issues"
+  },
+  "homepage": "https://github.com/faztcommunity/fazt-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.3.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.25"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.7",
+    "@types/express": "^4.17.7",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.0.27",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.56",
+    "typescript": "^3.9.7"
+  }
+}
