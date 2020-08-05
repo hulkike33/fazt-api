@@ -1,7 +1,7 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { RolUser } from './rol-user.entity'
 
-@Index('uk_rol_user', ['id'], { unique: true })
+@Index('uk_name_rol', ['nameRol'], { unique: true })
 @Entity("rol")
 export class Rol {
     @PrimaryGeneratedColumn({ type: "integer", name: "id" })
