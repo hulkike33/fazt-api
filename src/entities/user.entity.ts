@@ -1,5 +1,5 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { SkillUserEntity } from './skilluser.entity';
+import { SkillUserEntity } from './skill-user.entity';
 
 @Index('uk_email', ['email'], { unique: true })
 @Index('uk_username', ['username'], { unique: true })
