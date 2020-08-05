@@ -6,33 +6,32 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import { Skill } from './skill.entity';
-import { User } from './user.entity';
+import { SkillEntity } from './skill.entity';
+import { UserEntity } from './user.entity';
 
-@Index('skill_user_pkey', ['id'], { unique: true })
 @Index('uk_user_skill', ['idSkill', 'idUser'], { unique: true })
-@Entity('skill_user', { schema: 'public' })
-export class SkillUser {
+@Entity('skill_user')
+export class SkillUserEntity {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id!: number;
 
-  @Column('integer', { name: 'id_user', unique: true })
+  @Column('integer', { name: 'id_user' })
   idUser!: number;
 
-  @Column('integer', { name: 'id_skill', unique: true })
+  @Column('integer', { name: 'id_skill' })
   idSkill!: number;
 
-  @ManyToOne(() => Skill, skill => skill.skillUsers, {
+  @ManyToOne(() => SkillEntity, skill => skill.skillUser, {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
   })
   @JoinColumn([{ name: 'id_skill', referencedColumnName: 'id' }])
-  idSkillUser!: Skill;
+  skill!: SkillEntity;
 
-  @ManyToOne(() => User, user => user.skillUsers, {
+  @ManyToOne(() => UserEntity, user => user.skillUser, {
     onDelete: 'RESTRICT',
     onUpdate: 'RESTRICT'
   })
   @JoinColumn([{ name: 'id_user', referencedColumnName: 'id' }])
-  idUserSkill!: User;
+  user!: UserEntity;
 }

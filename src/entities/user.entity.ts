@@ -1,20 +1,20 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { SkillUser } from './skilluser.entity';
+import { SkillUserEntity } from './skilluser.entity';
+
 @Index('uk_email', ['email'], { unique: true })
-@Index('user_pkey', ['id'], { unique: true })
 @Index('uk_username', ['username'], { unique: true })
-@Entity('user', { schema: 'public' })
-export class User {
+@Entity('user')
+export class UserEntity {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id!: number;
 
   @Column('character varying', { name: 'name', length: 45 })
   name!: string;
 
-  @Column('character varying', { name: 'username', unique: true, length: 45 })
+  @Column('character varying', { name: 'username', length: 45 })
   username!: string;
 
-  @Column('character varying', { name: 'email', unique: true, length: 60 })
+  @Column('character varying', { name: 'email', length: 60 })
   email!: string;
 
   @Column('character varying', { name: 'password', length: 80 })
@@ -41,6 +41,6 @@ export class User {
   @Column('integer', { name: 'reset_date', nullable: true })
   resetDate!: number | null;
 
-  @OneToMany(() => SkillUser, skillUser => skillUser.idUserSkill)
-  skillUsers!: SkillUser[];
+  @OneToMany(() => SkillUserEntity, skillUser => skillUser.user)
+  skillUser!: SkillUserEntity[];
 }

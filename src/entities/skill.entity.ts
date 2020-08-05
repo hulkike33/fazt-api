@@ -1,19 +1,18 @@
 import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { SkillUser } from './skilluser.entity';
+import { SkillUserEntity } from './skilluser.entity';
 
-@Index('skill_pkey', ['id'], { unique: true })
 @Index('uk_name_skill', ['nameSkill'], { unique: true })
-@Entity('skill', { schema: 'public' })
-export class Skill {
+@Entity('skill')
+export class SkillEntity {
   @PrimaryGeneratedColumn({ type: 'integer', name: 'id' })
   id!: number;
 
-  @Column('character varying', { name: 'name_skill', unique: true, length: 45 })
+  @Column('character varying', { name: 'name_skill', length: 45 })
   nameSkill!: string;
 
   @Column('character varying', { name: 'state_skill', length: 20 })
   stateSkill!: string;
 
-  @OneToMany(() => SkillUser, skillUser => skillUser.idSkillUser)
-  skillUsers!: SkillUser[];
+  @OneToMany(() => SkillUserEntity, skillUser => skillUser.skill)
+  skillUser!: SkillUserEntity[];
 }
