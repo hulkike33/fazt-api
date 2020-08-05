@@ -2,7 +2,7 @@ import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeor
 import { UserEntity } from './user.entity'
 import {Rol} from './rol.entity'
 
-@Index('uk_rol_user', ['id_rol,id_user'], { unique: true })
+@Index('uk_rol_user', ['id_rol','id_user'], { unique: true })
 @Entity("rol_user")
 export class RolUser {
     @PrimaryGeneratedColumn({ type: "integer", name: "id" })
