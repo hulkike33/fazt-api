@@ -6,8 +6,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
-import { Skill } from './Skill';
-import { User } from './User';
+import { Skill } from './skill.entity';
+import { User } from './user.entity';
 
 @Index('skill_user_pkey', ['id'], { unique: true })
 @Index('uk_user_skill', ['idSkill', 'idUser'], { unique: true })
