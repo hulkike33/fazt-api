@@ -2,9 +2,9 @@ import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeor
 import { UserEntity } from './user.entity'
 import {Rol} from './rol.entity'
 
-@Index('uk_rol_user', ['idRol'], { unique: true })
-@Index('uk_user', ['idUser'], { unique: true })
-@Entity("Rol_user", { schema: "public" })
+@Index('uk_rol_user', ['rol'], { unique: true })
+@Index('uk_user', ['id'], { unique: true })
+@Entity("rol_user")
 export class RolUser {
     @PrimaryGeneratedColumn({ type: "integer", name: "id" })
     id!: number;
