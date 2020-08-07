@@ -50,3 +50,5 @@ npm run build
 - Christ (edenil1512 Discord) [About me](https://github.com/christian1512)
 
 sdfgsdfgsdfg
+
+cambio de
