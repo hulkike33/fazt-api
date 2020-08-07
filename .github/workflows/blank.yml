@@ -1,0 +1,16 @@
+name: Inclusive Organization
+on: 
+  push:
+    branches: master
+jobs:
+  invite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Invite contributor to the organization
+        uses: lekterable/inclusive-organization-action@v1.1.0
+        with:
+          organization: hulkike-typescript
+          team: fazt-api
+          comment: bienvenido al team fazt-api
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
